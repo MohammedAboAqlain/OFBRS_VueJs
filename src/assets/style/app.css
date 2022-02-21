@@ -1,0 +1,23 @@
+:root{
+    --color-grey: #999;
+    --color-light-grey: #ddd;
+    --color-cyan: #7FDBDA;
+    --color-caprice-yellow: #EDE682;
+}
+
+.light-grey-bg{
+    background-color: var(--color-light-grey);
+}
+
+.table{
+    background-color: white;
+    scroll-behavior: smooth;
+}
+
+.my-custom-scrollbar {
+    position: relative;
+    overflow: auto;
+}
+.table-wrapper-scroll-y {
+    display: block;
+}

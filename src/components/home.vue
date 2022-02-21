@@ -6,12 +6,6 @@
                 <h6>{{ value.name }}</h6>
             </span>
         </router-link>
-        <div class="col-sm-6 col-md-4 col-lg-3 bg-light">
-            <span>
-                <img src="../assets/icons/copyright.png" class="w-25" alt="cannot load image">
-                <h6>2021&copy;</h6>
-            </span>
-        </div>
     </div>
 </template>
 
@@ -27,6 +21,7 @@
     import sellerIcon from '../assets/icons/seller.png'
     import fishermanReportIcon from '../assets/icons/FishermanReport.png'
     import trashIcon from '../assets/icons/Trash.png'
+    import CopyRightIcon from '../assets/icons/copyright.png'
     export default{
         data(){
             return {
@@ -37,11 +32,12 @@
                     {name: 'النسخ الاحتياطي', imgSrc: restoreIcon, path: '/Backup'},
                     {name: 'الصيادين', imgSrc: fishermanIcon, path: '/Users/Fishermen'},
                     {name: 'كشف استلام', imgSrc: sellerReportIcon, path: '/InAndOutRecord/Receive'},
-                    {name: 'المخزن', imgSrc: warehouseIcon, path: '/Markets'},
+                    {name: 'المخزن', imgSrc: warehouseIcon, path: '/Storage'},
                     {name: 'مساعدة', imgSrc: helpIcon, path: '/Markets'},
                     {name: 'التجار', imgSrc: sellerIcon, path: '/Users/Sellers'},
                     {name: 'كشف تسليم', imgSrc: fishermanReportIcon, path: '/InAndOutRecord/Send'},
                     {name: 'سلة المحذوفات', imgSrc: trashIcon, path: '/Markets'},
+                    {name: 'حقوق الطبع', imgSrc: CopyRightIcon, path: '/dashboard'},
                 ]
             }
         }

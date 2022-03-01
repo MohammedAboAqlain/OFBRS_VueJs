@@ -31,7 +31,7 @@
                     alert('يجب ان يكون اسم السوق أكبر من 3 حروف');
                     return;
                 }
-                axios.post('http://fisher.foxytech.xyz/api/add-market', 
+                axios.post('http://127.0.0.1:8000/api/add-market', 
                 {name: this.market},
                 {headers: { Authorization: `Bearer ${this.getToken}` }}
                 )

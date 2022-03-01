@@ -342,7 +342,7 @@ export default{
         this.updated_to = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
 
         // get storage balance
-        axios.get('https://fisher.foxytech.xyz/api/get-storage_balance',{
+        axios.get('https://127.0.0.1:8000/api/get-storage_balance',{
             headers: { Authorization: `Bearer ${this.getToken}` }
         })
         .then(res => {

@@ -65,7 +65,7 @@
             }
         },
         mounted(){
-            axios.get(`https://fisher.foxytech.xyz/api/get-all-sellerByMarket/${this.market_id}`,
+            axios.get(`https://127.0.0.1:8000/api/get-all-sellerByMarket/${this.market_id}`,
                 {headers: { Authorization: `Bearer ${this.getToken}` }})
                 .then(res => {
                     let result = [];

@@ -77,7 +77,7 @@
                     password: this.formdata.password,
                     market_id: this.formdata.market
                 }
-                axios.post('http://fisher.foxytech.xyz/api/signup', user)
+                axios.post('http://127.0.0.1:8000/api/signup', user)
                     .then(res => {
                         console.log(res);
                         this.$router.push('/');
@@ -86,7 +86,7 @@
             }
         },
         created(){
-            axios.get('http://fisher.foxytech.xyz/api/index-user-type')
+            axios.get('http://127.0.0.1:8000/api/index-user-type')
             .then(res => {
                 console.log(res);
                 for (let i = 1; i < res.data.item.length; i++) {
@@ -94,7 +94,7 @@
                 }
                 console.log(this.userTypes);
             });
-            axios.get('http://fisher.foxytech.xyz/api/index-market')
+            axios.get('http://127.0.0.1:8000/api/index-market')
             .then(res => {
                 for (let i = 0; i < res.data.item.length; i++) {
                     this.markets.push({ id: res.data.item[i].id, name: res.data.item[i].name});

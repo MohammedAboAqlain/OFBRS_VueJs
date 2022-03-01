@@ -35,7 +35,7 @@
                     alert('يجب تحديد سوق أولا');
                     return;
                 }
-                axios.delete(`http://fisher.foxytech.xyz/api/delete-market/${this.market}`,
+                axios.delete(`http://127.0.0.1:8000/api/delete-market/${this.market}`,
                 {headers: { Authorization: `Bearer ${this.getToken}` }}
                 )
                     .then(res => {
@@ -46,7 +46,7 @@
             }
         },
         created(){
-            axios.get('http://fisher.foxytech.xyz/api/index-market')
+            axios.get('http://127.0.0.1:8000/api/index-market')
             .then(res => {
                 let result = [];
                 for (let i = 0; i < res.data.item.length; i++) {

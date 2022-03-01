@@ -192,7 +192,7 @@ export default {
 
             // send entry
             axios
-              .post('https://fisher.foxytech.xyz/api/add-entry', entry, {
+              .post('https://127.0.0.1:8000/api/add-entry', entry, {
                 headers: { Authorization: `Bearer ${this.getToken}` },
               })
               .then((res) => {
@@ -210,7 +210,7 @@ export default {
 
                 axios
                   .post(
-                    'https://fisher.foxytech.xyz/api/add-storage_entry',
+                    'https://127.0.0.1:8000/api/add-storage_entry',
                     storage_entry,
                     {
                       headers: { Authorization: `Bearer ${this.getToken}` },
@@ -234,7 +234,7 @@ export default {
                   console.log(entry);
                   axios
                     .post(
-                      'https://fisher.foxytech.xyz/api/add-storage_entry',
+                      'https://127.0.0.1:8000/api/add-storage_entry',
                       storage_entry,
                       {
                         headers: { Authorization: `Bearer ${this.getToken}` },
@@ -270,7 +270,7 @@ export default {
 
             // send entry
             axios
-              .post('https://fisher.foxytech.xyz/api/add-entry', entry, {
+              .post('https://127.0.0.1:8000/api/add-entry', entry, {
                 headers: { Authorization: `Bearer ${this.getToken}` },
               })
               .then((res) => {
@@ -288,7 +288,7 @@ export default {
 
                 axios
                   .post(
-                    'https://fisher.foxytech.xyz/api/add-storage_entry',
+                    'https://127.0.0.1:8000/api/add-storage_entry',
                     storage_entry,
                     {
                       headers: { Authorization: `Bearer ${this.getToken}` },
@@ -386,7 +386,7 @@ export default {
     if (this.$route.params.type == 'Receive') {
       // get all sellers
       axios
-        .get('https://fisher.foxytech.xyz/api/get-all-seller', {
+        .get('https://127.0.0.1:8000/api/get-all-seller', {
           headers: { Authorization: `Bearer ${this.getToken}` },
         })
         .then((res) => {
@@ -407,7 +407,7 @@ export default {
     } else {
       // get all fishermen
       axios
-        .get('https://fisher.foxytech.xyz/api/get-all-fisherman', {
+        .get('https://127.0.0.1:8000/api/get-all-fisherman', {
           headers: { Authorization: `Bearer ${this.getToken}` },
         })
         .then((res) => {

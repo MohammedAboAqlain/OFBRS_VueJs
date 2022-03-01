@@ -40,7 +40,7 @@
         methods: {
             signIn(){
                 // sign in here
-                axios.post('http://fisher.foxytech.xyz/api/login', {
+                axios.post('http://127.0.0.1:8000/api/login/', {
                     phone: this.phone,
                     password: this.password
                 })
@@ -49,6 +49,7 @@
                     this.setToken(res.data.access_token);
                     res.data.user.balance = res.data.balance;
                     this.setUser(res.data.user);
+                    this.fetchMarkets();
                     if(res.data.user.type_id == '0'){
                         this.$router.push('/dashboard');
                         this.setAdmin(true);
@@ -63,9 +64,6 @@
                 });
             },
             ...mapActions(['login', 'setAdmin', 'setToken', 'setUser', 'fetchMarkets'])
-        },
-        mounted(){
-            this.fetchMarkets();
         }
     }
 </script>

@@ -190,7 +190,7 @@ export default {
             comment: this.items[i].notes
           }
           console.log(entry);
-          axios.post('https://fisher.foxytech.xyz/api/add-entry', entry, 
+          axios.post('https://127.0.0.1:8000/api/add-entry', entry, 
             {headers: { Authorization: `Bearer ${this.getToken}` }
           })
           .then(res => {
@@ -214,7 +214,7 @@ export default {
               comment: 'بيع الصياد بكس زيادة عن ما أخذ'
             }
             console.log(entry);
-            axios.post('https://fisher.foxytech.xyz/api/add-entry', entry, 
+            axios.post('https://127.0.0.1:8000/api/add-entry', entry, 
               {headers: { Authorization: `Bearer ${this.getToken}` }
             })
             .then(res => {
@@ -269,7 +269,7 @@ export default {
     this.overFlow = new Map();
     // get all fishermen
     axios
-      .get('https://fisher.foxytech.xyz/api/get-all-fisherman', {
+      .get('https://127.0.0.1:8000/api/get-all-fisherman', {
         headers: { Authorization: `Bearer ${this.getToken}` }
       })
       .then((res) => {
@@ -290,7 +290,7 @@ export default {
 
     // get all sellers
     axios
-      .get('https://fisher.foxytech.xyz/api/get-all-seller', {
+      .get('https://127.0.0.1:8000/api/get-all-seller', {
         headers: { Authorization: `Bearer ${this.getToken}` },
       })
       .then((res) => {

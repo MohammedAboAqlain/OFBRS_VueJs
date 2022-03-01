@@ -29,7 +29,7 @@
         //     this.fetchMarkets();
         // },
         mounted(){
-            axios.get('http://fisher.foxytech.xyz/api/index-market')
+            axios.get('http://127.0.0.1:8000/api/index-market')
             .then(res => {
                 let result = [];
                 for (let i = 0; i < res.data.item.length; i++) {

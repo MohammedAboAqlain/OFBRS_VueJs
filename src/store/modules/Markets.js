@@ -12,7 +12,8 @@ const getters = {
 
 const actions = {
     fetchMarkets({commit}){
-        axios.get('http://fisher.foxytech.xyz/api/index-market')
+        axios.get('http://127.0.0.1:8000/api/index-market',
+        {headers: { Authorization: `Bearer ${this.getToken}` }})
             .then(res => {
                 console.log(res);
                 let result = [];

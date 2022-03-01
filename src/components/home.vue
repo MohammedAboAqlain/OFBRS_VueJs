@@ -33,10 +33,10 @@
                     {name: 'الصيادين', imgSrc: fishermanIcon, path: '/Users/Fishermen'},
                     {name: 'كشف استلام', imgSrc: sellerReportIcon, path: '/InAndOutRecord/Receive'},
                     {name: 'المخزن', imgSrc: warehouseIcon, path: '/Storage'},
-                    {name: 'مساعدة', imgSrc: helpIcon, path: '/Markets'},
+                    {name: 'مساعدة', imgSrc: helpIcon, path: '/faq'},
                     {name: 'التجار', imgSrc: sellerIcon, path: '/Users/Sellers'},
                     {name: 'كشف تسليم', imgSrc: fishermanReportIcon, path: '/InAndOutRecord/Send'},
-                    {name: 'سلة المحذوفات', imgSrc: trashIcon, path: '/Markets'},
+                    {name: 'سلة المحذوفات', imgSrc: trashIcon, path: '/recycle-bin'},
                     {name: 'حقوق الطبع', imgSrc: CopyRightIcon, path: '/dashboard'},
                 ]
             }

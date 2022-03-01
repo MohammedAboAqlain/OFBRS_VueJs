@@ -5,7 +5,7 @@
               <button class="btn btn-light font-weight-bold">تفريم البكس المحطمة</button>
               <div class="font-weight-bold mt-2" style="text-align:center;">البكس المحطمة <span>0</span> بكسة</div>
           </div>
-          <h4>البُكس المتبقية في المخزن <span>0</span> بكسة</h4>
+          <h4>البُكس المتبقية في المخزن <span>{{ remaining_balance }}</span> بكسة</h4>
           <div>
               <button class="btn btn-light font-weight-bold">تصفير البكس غير معروفة المصير</button>
               <div class="font-weight-bold mt-2" style="text-align:center;">البكس المفقودة <span>0</span> بكسة</div>
@@ -45,10 +45,11 @@
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col">الرقم</th>
-            <th scope="col">العدد</th>
-            <th scope="col">السعر</th>
-            <th scope="col">التاجر</th>
+            <th scope="col">المسبب</th>
+            <th scope="col">نوع القيد</th>
+            <th scope="col">الكمية</th>
+            <th scope="col">تاريخ الانشاء</th>
+            <th scope="col">تاريخ التعديل</th>
             <th scope="col">ملاحظات</th>
           </tr>
         </thead>
@@ -61,10 +62,11 @@
             <td scope="row">
               <input type="checkbox" v-model="item.isChecked" class="form-control m-0" />
             </td>
-            <td>{{ item.id }}</td>
+            <td>{{ item.caused_by }}</td>
+            <td>{{ item.entry_type }}</td>
             <td>{{ item.quantity }}</td>
-            <td>{{ item.price }}</td>
-            <td>{{ item.seller }}</td>
+            <td>{{ item.created_at }}</td>
+            <td>{{ item.updated_at }}</td>
             <td>{{ item.notes }}</td>
           </tr>
         </tbody>
@@ -93,6 +95,8 @@ import { mapGetters, mapActions } from 'vuex';
 export default {
   data() {
     return {
+      date: null,
+      remaining_balance: 0,
       overFlow: null,
       fishermen: [],
       sellers: [],
@@ -223,47 +227,17 @@ export default {
   },
   created() {
     this.overFlow = new Map();
-    // get all fishermen
+    // get storage balance
     axios
-      .get('https://fisher.foxytech.xyz/api/get-all-fisherman', {
+      .get('https://fisher.foxytech.xyz/api/get-storage_balance', {
         headers: { Authorization: `Bearer ${this.getToken}` }
       })
       .then((res) => {
         console.log(res);
-        let result = [];
-        for (let i = 0; i < res.data.data.length; i++) {
-          result.push({
-            id: res.data.data[i].id,
-            darsh_key: res.data.data[i].darsh_key,
-            name: res.data.data[i].name,
-            phone: res.data.data[i].phone,
-            balance: res.data.data[i].balance
-          });
-          this.fishermen = result;
-        }
+        this.remaining_balance = res.data;
       })
       .catch((err) => console.log(err));
 
-    // get all sellers
-    axios
-      .get('https://fisher.foxytech.xyz/api/get-all-seller', {
-        headers: { Authorization: `Bearer ${this.getToken}` },
-      })
-      .then((res) => {
-        console.log(res);
-        let result = [];
-        for (let i = 0; i < res.data.data.length; i++) {
-          result.push({
-            id: res.data.data[i].id,
-            darsh_key: res.data.data[i].darsh_key,
-            name: res.data.data[i].name,
-            phone: res.data.data[i].phone,
-            balance: res.data.data[i].balance
-          });
-          this.sellers = result;
-        }
-      })
-      .catch((err) => console.log(err));
 
       this.setHasIntries(false);
   },

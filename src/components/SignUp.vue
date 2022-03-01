@@ -40,7 +40,6 @@
                         <option selected disabled value="null">اختر...</option>
                         <option v-for="item in markets" :key="item.id" :value="item.id">{{item.name}}</option>
                     </select>
-                    <p>{{ formdata.market }}</p>
                     <div class="invalid-tooltip">
                         Please select a valid state.
                     </div>

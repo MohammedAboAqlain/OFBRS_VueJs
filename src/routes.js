@@ -12,6 +12,8 @@ import InAndOutRecord from './components/InAndOutRecord.vue';
 import Backup from './components/Backup.vue';
 import Entries from './components/Entries.vue';
 import Storage from './components/Storage.vue';
+import FAQ from './components/FAQ.vue';
+import RecycleBin from './components/RecycleBin.vue';
 
 
 export const routes = [
@@ -29,5 +31,7 @@ export const routes = [
     {path: '/InAndOutRecord/:type', component: InAndOutRecord},
     {path: '/Backup', component: Backup},
     {path: '/AllEntries', component: Entries},
-    {path: '/Storage', component: Storage}
+    {path: '/Storage', component: Storage},
+    {path: '/faq', component: FAQ},
+    {path: '/recycle-bin', component: RecycleBin}
 ];

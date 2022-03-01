@@ -1,27 +1,29 @@
 <template>
-    <div class="w-50 mx-auto my-5 text-right px-4 text-white bg-secondary rounded">
-        <h2 class="text-center py-4 border-bottom">تسجيل دخول</h2>
-        <form class="needs-validation" novalidate>
-            <div class="form-row">
-                <div class="col-12 mb-3">
-                    <label for="validationTooltip01">رقم الجوال</label>
-                    <input type="text" v-model="phone" class="form-control" id="validationTooltip01" value="" placeholder="أدخل الاسم " required>
-                    <div class="valid-tooltip">
-                        Looks good!
+    <div class="w-50 mx-auto" style="margin-top:7rem;">
+        <div class="text-right px-4 text-white bg-secondary rounded">
+            <h2 class="text-center py-4 border-bottom">تسجيل دخول</h2>
+            <form class="needs-validation" novalidate>
+                <div class="form-row">
+                    <div class="col-12 mb-3">
+                        <label for="validationTooltip01">رقم الجوال</label>
+                        <input type="text" v-model="phone" class="form-control" id="validationTooltip01" value="" placeholder="أدخل الاسم " required>
+                        <div class="valid-tooltip">
+                            Looks good!
+                        </div>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <label for="validationTooltip02">كلمة المرور</label>
+                        <input type="password" v-model="password" class="form-control" id="validationTooltip02" value="" placeholder="أدخل البريد الالكتروني" required>
+                        <div class="valid-tooltip">
+                            Looks good!
+                        </div>
                     </div>
                 </div>
-                <div class="col-12 mb-3">
-                    <label for="validationTooltip02">كلمة المرور</label>
-                    <input type="password" v-model="password" class="form-control" id="validationTooltip02" value="" placeholder="أدخل البريد الالكتروني" required>
-                    <div class="valid-tooltip">
-                        Looks good!
-                    </div>
+                <div class="text-center py-4">
+                    <button @click.prevent="signIn" class="btn btn-primary mx-auto px-4 font-weight-bold" type="submit">دخول</button>
                 </div>
-            </div>
-            <div class="text-center py-4">
-                <button @click.prevent="signIn" class="btn btn-primary mx-auto px-4 font-weight-bold" type="submit">دخول</button>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </template>
 

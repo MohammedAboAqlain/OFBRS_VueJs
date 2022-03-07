@@ -343,7 +343,7 @@ export default{
 
         // get storage balance
         axios.get('https://127.0.0.1:8000/api/get-storage_balance',{
-            headers: { Authorization: `Bearer ${this.getToken}` }
+            headers: { Authorization: `Token ${this.getToken}` }
         })
         .then(res => {
             this.storage_balance = res.data;

@@ -54,7 +54,7 @@
             if(this.type == 'Fishermen'){
                 this.marKetOrUserType = 'نوع المركبة';
                 axios.get('https://127.0.0.1:8000/api/get-all-fisherman',
-                    {headers: { Authorization: `Bearer ${this.getToken}` }}
+                    {headers: { Authorization: `Token ${this.getToken}` }}
                 ).then(res => {
                     console.log(res);
                     let result = [];
@@ -75,7 +75,7 @@
             } else if (this.type == 'Sellers'){
                 this.marKetOrUserType = 'السوق';
                 axios.get('https://127.0.0.1:8000/api/get-all-seller',
-                    {headers: { Authorization: `Bearer ${this.getToken}` }}
+                    {headers: { Authorization: `Token ${this.getToken}` }}
                 ).then(res => {
                     console.log(res);
                     let result = [];

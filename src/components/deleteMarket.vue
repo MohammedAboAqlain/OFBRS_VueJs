@@ -36,7 +36,7 @@
                     return;
                 }
                 axios.delete(`http://127.0.0.1:8000/api/delete-market/${this.market}`,
-                {headers: { Authorization: `Bearer ${this.getToken}` }}
+                {headers: { Authorization: `Token ${this.getToken}` }}
                 )
                     .then(res => {
                         console.log(res);
@@ -46,7 +46,8 @@
             }
         },
         created(){
-            axios.get('http://127.0.0.1:8000/api/index-market')
+            axios.get('http://127.0.0.1:8000/api/index-market',
+            {headers: { Authorization: `Token ${this.getToken}` }})
             .then(res => {
                 let result = [];
                 for (let i = 0; i < res.data.item.length; i++) {

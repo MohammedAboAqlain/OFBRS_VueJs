@@ -191,7 +191,7 @@ export default {
           }
           console.log(entry);
           axios.post('https://127.0.0.1:8000/api/add-entry', entry, 
-            {headers: { Authorization: `Bearer ${this.getToken}` }
+            {headers: { Authorization: `Token ${this.getToken}` }
           })
           .then(res => {
             console.log(res);
@@ -215,7 +215,7 @@ export default {
             }
             console.log(entry);
             axios.post('https://127.0.0.1:8000/api/add-entry', entry, 
-              {headers: { Authorization: `Bearer ${this.getToken}` }
+              {headers: { Authorization: `Token ${this.getToken}` }
             })
             .then(res => {
               console.log(res);
@@ -270,7 +270,7 @@ export default {
     // get all fishermen
     axios
       .get('https://127.0.0.1:8000/api/get-all-fisherman', {
-        headers: { Authorization: `Bearer ${this.getToken}` }
+        headers: { Authorization: `Token ${this.getToken}` }
       })
       .then((res) => {
         console.log(res);
@@ -291,7 +291,7 @@ export default {
     // get all sellers
     axios
       .get('https://127.0.0.1:8000/api/get-all-seller', {
-        headers: { Authorization: `Bearer ${this.getToken}` },
+        headers: { Authorization: `Token ${this.getToken}` },
       })
       .then((res) => {
         console.log(res);

@@ -29,7 +29,8 @@
         //     this.fetchMarkets();
         // },
         mounted(){
-            axios.get('http://127.0.0.1:8000/api/index-market')
+            axios.get('http://127.0.0.1:8000/api/index-market',
+            {headers: { Authorization: `Token ${this.getToken}` }})
             .then(res => {
                 let result = [];
                 for (let i = 0; i < res.data.item.length; i++) {
@@ -51,7 +52,7 @@
         // methods: {
         //     ...mapActions(['fetchMarkets'])
         // },
-        computed: mapGetters(['getAllMarkets'])
+        computed: mapGetters(['getAllMarkets', 'getToken'])
     }
 </script>
 

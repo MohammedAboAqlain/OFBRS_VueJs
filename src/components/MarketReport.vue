@@ -66,7 +66,7 @@
         },
         mounted(){
             axios.get(`https://127.0.0.1:8000/api/get-all-sellerByMarket/${this.market_id}`,
-                {headers: { Authorization: `Bearer ${this.getToken}` }})
+                {headers: { Authorization: `Token ${this.getToken}` }})
                 .then(res => {
                     let result = [];
                     for (let i = 0; i < res.data.item.length; i++) {

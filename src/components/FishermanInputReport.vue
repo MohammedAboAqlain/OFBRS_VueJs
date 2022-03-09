@@ -182,15 +182,15 @@ export default {
           }
 
           let entry = {
-            entry_type_id: 2,
+            type: 2,
             giver_id,
             taker_id,
             quantity: this.items[i].quantity,
             unit_price: this.items[i].price,
-            comment: this.items[i].notes
-          }
+            comment: this.items[i].notes,
+          };
           console.log(entry);
-          axios.post('https://127.0.0.1:8000/api/add-entry', entry, 
+          axios.post('http://127.0.0.1:8000/api/add-entry/', entry, 
             {headers: { Authorization: `Token ${this.getToken}` }
           })
           .then(res => {
@@ -206,15 +206,15 @@ export default {
           
           if(item){
             entry = {
-              entry_type_id: 10,
-              giver_id: 0,
+              type: 10,
+              giver_id: 1,
               taker_id: giver_id,
               quantity: item,
               unit_price: this.items[i].price,
               comment: 'بيع الصياد بكس زيادة عن ما أخذ'
             }
             console.log(entry);
-            axios.post('https://127.0.0.1:8000/api/add-entry', entry, 
+            axios.post('http://127.0.0.1:8000/api/add-entry/', entry, 
               {headers: { Authorization: `Token ${this.getToken}` }
             })
             .then(res => {
@@ -269,7 +269,7 @@ export default {
     this.overFlow = new Map();
     // get all fishermen
     axios
-      .get('https://127.0.0.1:8000/api/get-all-fisherman', {
+      .get('http://127.0.0.1:8000/api/get-all-fisherman/', {
         headers: { Authorization: `Token ${this.getToken}` }
       })
       .then((res) => {
@@ -290,22 +290,12 @@ export default {
 
     // get all sellers
     axios
-      .get('https://127.0.0.1:8000/api/get-all-seller', {
+      .get('http://127.0.0.1:8000/api/get-all-seller/', {
         headers: { Authorization: `Token ${this.getToken}` },
       })
       .then((res) => {
         console.log(res);
-        let result = [];
-        for (let i = 0; i < res.data.data.length; i++) {
-          result.push({
-            id: res.data.data[i].id,
-            darsh_key: res.data.data[i].darsh_key,
-            name: res.data.data[i].name,
-            phone: res.data.data[i].phone,
-            balance: res.data.data[i].balance
-          });
-          this.sellers = result;
-        }
+        this.sellers = res.data.data;
       })
       .catch((err) => console.log(err));
 

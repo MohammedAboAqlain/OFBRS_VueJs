@@ -12,17 +12,10 @@ const getters = {
 
 const actions = {
     fetchMarkets({commit}){
-        axios.get('http://127.0.0.1:8000/api/index-market',
+        axios.get('http://127.0.0.1:8000/api/index-market/',
         {headers: { Authorization: `Token ${this.getToken}` }})
             .then(res => {
-                console.log(res);
-                let result = [];
-                for (let i = 0; i < res.data.item.length; i++) {
-                    if(res.data.item[i]){
-                        result[res.data.item[i].id] = res.data.item[i].name;
-                    }
-                }
-                commit('fetchMarkets', result);
+                commit('fetchMarkets', res.data.item);
             })
             .catch(err => console.log(err));
     }

@@ -39,16 +39,22 @@
     export default {
         data(){
             return {
-                market_id: this.$route.params.id,
                 items: [],
                 filteredItems: [],
-                searchValue: ''
+                searchValue: '',
+                getAllMarkets: []
             }
         },
         computed: {
-            ...mapGetters(['getToken', 'getAllMarkets']),
+            ...mapGetters(['getToken']),
             market_name(){
-                return this.getAllMarkets[this.market_id];
+                for(let i = 0; i < this.getAllMarkets.length; i++)
+                    if(this.getAllMarkets[i].id == this.market_id)
+                      return this.getAllMarkets[i].name;
+                return 'error';
+            },
+            market_id(){
+                return this.$route.params.id;
             }
         },
         methods: {
@@ -65,19 +71,20 @@
             }
         },
         mounted(){
-            axios.get(`https://127.0.0.1:8000/api/get-all-sellerByMarket/${this.market_id}`,
+            axios.get('http://127.0.0.1:8000/api/index-market/',
+            {headers: { Authorization: `Token ${this.getToken}` }})
+                .then(res => {
+                    console.log(res.data.item[0]);
+                    this.getAllMarkets = res.data.item;
+                })
+                .catch(err => console.log(err));
+
+            axios.get(`http://127.0.0.1:8000/api/get-all-sellerByMarket/${this.market_id}/`,
                 {headers: { Authorization: `Token ${this.getToken}` }})
                 .then(res => {
-                    let result = [];
-                    for (let i = 0; i < res.data.item.length; i++) {
-                        result.push({
-                            darsh_key: res.data.item[i].darsh_key,
-                            name: res.data.item[i].name,
-                            phone: res.data.item[i].phone
-                        });
-                    }
-                    this.items = result;
-                    this.filteredItems = result;
+                    console.log(res);
+                    this.items = res.data.data;
+                    this.filteredItems = res.data.data;
                 })
                 .catch(err => console.log(err));
         }

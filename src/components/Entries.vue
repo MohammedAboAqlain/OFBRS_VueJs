@@ -116,19 +116,19 @@ export default{
                     name: 'استلام'
                 },
                 {
-                    id: 1,
+                    id: 2,
                     name: 'تسليم'
                 },
                 {
-                    id: 1,
+                    id: 3,
                     name: 'بيع'
                 },
                 {
-                    id: 1,
+                    id: 4,
                     name: 'بيع زيادة'
                 },
                 {
-                    id: 1,
+                    id: 5,
                     name: '...'
                 }
             ],
@@ -342,11 +342,11 @@ export default{
         this.updated_to = date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
 
         // get storage balance
-        axios.get('https://127.0.0.1:8000/api/get-storage_balance',{
+        axios.get('http://127.0.0.1:8000/api/get-storage_balance/',{
             headers: { Authorization: `Token ${this.getToken}` }
         })
         .then(res => {
-            this.storage_balance = res.data;
+            this.storage_balance = res.data.balance;
         })
         .catch(err => console.log(err));
     }

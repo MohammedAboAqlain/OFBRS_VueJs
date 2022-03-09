@@ -170,7 +170,7 @@ export default {
 
         if (this.viewType == 'Receive') {
           // seller
-          taker_id = 0;
+          taker_id = 1;
           for (let i = 0; i < this.items.length; i++) {
             for (let j = 0; j < this.sellers.length; j++) {
               if (this.sellers[j].name.includes(this.items[i].user)) {
@@ -180,7 +180,7 @@ export default {
             }
 
             let entry = {
-              entry_type_id: 3,
+              type: 3,
               giver_id,
               taker_id,
               quantity: this.items[i].quantity,
@@ -188,29 +188,27 @@ export default {
               comment: this.items[i].notes,
             };
             console.log(entry);
-            let entry_id;
 
             // send entry
             axios
-              .post('https://127.0.0.1:8000/api/add-entry', entry, {
+              .post('http://127.0.0.1:8000/api/add-entry/', entry, {
                 headers: { Authorization: `Token ${this.getToken}` },
               })
               .then((res) => {
-                entry_id = res.data.entry_id;
                 console.log(res);
 
                 // send storage positive entry
 
                 let storage_entry = {
-                  entry_id,
-                  entry_type: 12,
+                  type: 12,
+                  caused_by: 1,
                   quantity_diff: entry.quantity,
                   comment: entry.comment,
                 };
 
                 axios
                   .post(
-                    'https://127.0.0.1:8000/api/add-storage_entry',
+                    'http://127.0.0.1:8000/api/add-storage-entry/',
                     storage_entry,
                     {
                       headers: { Authorization: `Token ${this.getToken}` },
@@ -226,15 +224,15 @@ export default {
                 }
                 if (item) {
                   storage_entry = {
-                    entry_id,
-                    entry_type: 9,
+                    type: 9,
+                    caused_by: 1,
                     quantity_diff: item,
                     comment: 'ارجاع التاجر بكس زيادة عن ما أخذ',
                   };
                   console.log(entry);
                   axios
                     .post(
-                      'https://127.0.0.1:8000/api/add-storage_entry',
+                      'http://127.0.0.1:8000/api/add-storage-entry/',
                       storage_entry,
                       {
                         headers: { Authorization: `Token ${this.getToken}` },
@@ -248,7 +246,7 @@ export default {
           }
         } else {
           // fisherman
-          giver_id = 0;
+          giver_id = 1;
           for (let i = 0; i < this.items.length; i++) {
             for (let j = 0; j < this.fishermen.length; j++) {
               if (this.fishermen[j].name.includes(this.items[i].user)) {
@@ -258,7 +256,7 @@ export default {
             }
 
             let entry = {
-              entry_type_id: 1,
+              type: 1,
               giver_id,
               taker_id,
               quantity: this.items[i].quantity,
@@ -266,29 +264,27 @@ export default {
               comment: this.items[i].notes,
             };
             console.log(entry);
-            let entry_id;
 
             // send entry
             axios
-              .post('https://127.0.0.1:8000/api/add-entry', entry, {
+              .post('http://127.0.0.1:8000/api/add-entry/', entry, {
                 headers: { Authorization: `Token ${this.getToken}` },
               })
               .then((res) => {
-                entry_id = res.data.entry_id;
                 console.log(res);
 
                 // send storage negative entry
 
                 let storage_entry = {
-                  entry_id,
-                  entry_type: 13,
+                  type: 13,
+                  caused_by: 1,
                   quantity_diff: -1 * entry.quantity,
                   comment: entry.comment,
                 };
 
                 axios
                   .post(
-                    'https://127.0.0.1:8000/api/add-storage_entry',
+                    'http://127.0.0.1:8000/api/add-storage-entry/',
                     storage_entry,
                     {
                       headers: { Authorization: `Token ${this.getToken}` },
@@ -386,43 +382,23 @@ export default {
     if (this.$route.params.type == 'Receive') {
       // get all sellers
       axios
-        .get('https://127.0.0.1:8000/api/get-all-seller', {
+        .get('http://127.0.0.1:8000/api/get-all-seller/', {
           headers: { Authorization: `Token ${this.getToken}` },
         })
         .then((res) => {
           console.log(res);
-          let result = [];
-          for (let i = 0; i < res.data.data.length; i++) {
-            result.push({
-              id: res.data.data[i].id,
-              darsh_key: res.data.data[i].darsh_key,
-              name: res.data.data[i].name,
-              phone: res.data.data[i].phone,
-              balance: res.data.data[i].balance,
-            });
-            this.sellers = result;
-          }
+          this.sellers = res.data.data;
         })
         .catch((err) => console.log(err));
     } else {
       // get all fishermen
       axios
-        .get('https://127.0.0.1:8000/api/get-all-fisherman', {
+        .get('http://127.0.0.1:8000/api/get-all-fisherman/', {
           headers: { Authorization: `Token ${this.getToken}` },
         })
         .then((res) => {
           console.log(res);
-          let result = [];
-          for (let i = 0; i < res.data.data.length; i++) {
-            result.push({
-              id: res.data.data[i].id,
-              darsh_key: res.data.data[i].darsh_key,
-              name: res.data.data[i].name,
-              phone: res.data.data[i].phone,
-              balance: res.data.data[i].balance,
-            });
-          }
-          this.fishermen = result;
+          this.fishermen = res.data.data;
         })
         .catch((err) => console.log(err));
     }

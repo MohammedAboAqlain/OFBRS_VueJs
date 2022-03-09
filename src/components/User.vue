@@ -26,7 +26,7 @@
                                 <td>{{ item.name }}</td>
                                 <td>{{ item.phone }}</td>
                                 <td>{{ item.balance }}</td>
-                                <td>{{ item.user_type }}</td>
+                                <td>{{ type == 'Fishermen'? getUserType(item.type_id) : getUserType(item.market_id) }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -39,63 +39,54 @@
 
 <script>
     import axios from 'axios'
-    import { mapGetters } from 'vuex'
+    import { mapGetters, mapActions } from 'vuex'
     export default {
         data(){
             return {
                 items: [],
                 filteredItems: [],
+                getAllMarkets: null,
                 searchValue: '',
                 type: this.$route.params.type,
                 marKetOrUserType: ''
             }
         },
         created(){
+            // getting markets
+            axios.get('http://127.0.0.1:8000/api/index-market/',
+            {headers: { Authorization: `Token ${this.getToken}` }})
+                .then(res => {
+                    this.getAllMarkets = res.data.item;
+                })
+                .catch(err => console.log(err));
+
+
             if(this.type == 'Fishermen'){
                 this.marKetOrUserType = 'نوع المركبة';
-                axios.get('https://127.0.0.1:8000/api/get-all-fisherman',
+                axios.get('http://127.0.0.1:8000/api/get-all-fisherman/',
                     {headers: { Authorization: `Token ${this.getToken}` }}
                 ).then(res => {
                     console.log(res);
-                    let result = [];
-                    for (let i = 0; i < res.data.data.length; i++) {
-                        result.push({
-                            darsh_key: res.data.data[i].darsh_key,
-                            name: res.data.data[i].name,
-                            phone: res.data.data[i].phone,
-                            balance: res.data.data[i].balance,
-                            user_type: this.getUserType(res.data.data[i].type_id)
-                        });
-                    }
-                    this.items = result;
-                    this.filteredItems = result;
+                    this.items = res.data.data;
+                    this.filteredItems = res.data.data;
                 }).catch(
                     err => console.log(err)
                 );
             } else if (this.type == 'Sellers'){
                 this.marKetOrUserType = 'السوق';
-                axios.get('https://127.0.0.1:8000/api/get-all-seller',
+                axios.get('http://127.0.0.1:8000/api/get-all-seller/',
                     {headers: { Authorization: `Token ${this.getToken}` }}
                 ).then(res => {
                     console.log(res);
-                    let result = [];
-                    for (let i = 0; i < res.data.data.length; i++) {
-                        result.push({
-                            darsh_key: res.data.data[i].darsh_key,
-                            name: res.data.data[i].name,
-                            phone: res.data.data[i].phone,
-                            balance: res.data.data[i].balance,
-                            user_type: this.getUserType(res.data.data[i].market_id)
-                        });
-                    }
-                    this.items = result;
-                    this.filteredItems = result;
+                    this.items = res.data.data;
+                    this.filteredItems = res.data.data;
                 }).catch(
                     err => console.log(err)
                 );
             }
         },
         methods: {
+            ...mapActions(['fetchMarkets']),
             getUserType(type_id){
                 if(this.type == 'Fishermen'){
                     if(type_id == 5){
@@ -106,8 +97,7 @@
                         return 'تاجر';
                     }
                 } else{
-                    console.log('getting market...')
-                    return this.getAllMarkets[type_id];
+                    return this.getAllMarkets.find(x => x.id == type_id).name;
                 }
             },
             search(){
@@ -116,13 +106,16 @@
                     return;
                 }
                 this.filteredItems = this.items.filter(item => {
-                    return item.darsh_key.toString().includes(this.searchValue) ||
-                            item.name.toString().includes(this.searchValue) ||
+                    // TODO: handle search by darsh_key
+                    // return item.darsh_key.toString().includes(this.searchValue) ||
+                    //         item.name.toString().includes(this.searchValue) ||
+                    //         item.phone.toString().includes(this.searchValue)
+                    return  item.name.toString().includes(this.searchValue) ||
                             item.phone.toString().includes(this.searchValue)
                 });
             }
         },
-        computed: mapGetters(['getToken', 'getAllMarkets'])
+        computed: mapGetters(['getToken'])
     }
 </script>
 

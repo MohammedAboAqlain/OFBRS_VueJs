@@ -1,5 +1,5 @@
 <template>
-    <nav class="navbar navbar-light bg-secondary rounded shadow">
+    <nav class="navbar navbar-light bg-secondary rounded-bottom shadow">
         <form v-if="!isAuthinticated" class="form-inline mx-auto mx-md-0">
             <button @click="$router.push('/');" class="btn btn-primary mb-3 mb-sm-0 mx-auto mr-sm-1 px-3 py-1 font-weight-bold">تسجيل الدخول</button>
             <span style="width:10px"></span>

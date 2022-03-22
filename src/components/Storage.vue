@@ -107,7 +107,7 @@ export default {
       To_date_updated: this.getDateNow(),
       add_manufactured_boxes: null,
       caused_by_map: {
-        1: 'المسئول'
+        1: 'الآدمن'
       },
       overFlow: null,
       fishermen: [],

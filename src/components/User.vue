@@ -53,9 +53,9 @@
         },
         created(){
             // getting markets
-            axios.get('http://127.0.0.1:8000/api/index-market/',
-            {headers: { Authorization: `Token ${this.getToken}` }})
+            axios.get('http://127.0.0.1:8000/api/index-market/')
                 .then(res => {
+                    console.log(res);
                     this.getAllMarkets = res.data.item;
                 })
                 .catch(err => console.log(err));

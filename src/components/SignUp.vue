@@ -64,7 +64,11 @@
                     password: '',
                     market: null
                 },
-                userTypes: [],
+                userTypes: [
+                    {id: 1, name: 'تاجر'},
+                    {id: 5, name: 'صياد لنش'},
+                    {id: 6, name: 'صياد حسكة'}
+                ],
                 markets: []
             }
         },
@@ -75,9 +79,9 @@
                     phone: this.formdata.phone,
                     type_id: this.formdata.type,
                     password: this.formdata.password,
-                    market_id: this.formdata.market
+                    market: this.formdata.market
                 }
-                axios.post('http://127.0.0.1:8000/api/signup', user)
+                axios.post('http://127.0.0.1:8000/api/register/', user)
                     .then(res => {
                         console.log(res);
                         this.$router.push('/');
@@ -86,14 +90,14 @@
             }
         },
         created(){
-            axios.get('http://127.0.0.1:8000/api/index-user-type')
-            .then(res => {
-                console.log(res);
-                for (let i = 1; i < res.data.item.length; i++) {
-                    this.userTypes.push({id: res.data.item[i].id, name: res.data.item[i].name});
-                }
-                console.log(this.userTypes);
-            });
+            // axios.get('http://127.0.0.1:8000/api/index-user-type')
+            // .then(res => {
+            //     console.log(res);
+            //     for (let i = 1; i < res.data.item.length; i++) {
+            //         this.userTypes.push({id: res.data.item[i].id, name: res.data.item[i].name});
+            //     }
+            //     console.log(this.userTypes);
+            // });
             axios.get('http://127.0.0.1:8000/api/index-market')
             .then(res => {
                 for (let i = 0; i < res.data.item.length; i++) {

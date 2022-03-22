@@ -1,20 +1,32 @@
 <template>
   <div class="main-wrapper rounded-bottom">
-    <div class="mx-auto" style="width: fit-content">
-      <div class="h80">
+    <div>
+      <div class="w-100 d-flex align-items-center py-2">
+        <h6 style="width:33.3%" class="text-center">
+          الرصيد:
+          <span>{{ remaining_balance }}</span>
+          <span>بكسة</span>
+        </h6>
+        <h1 style="width:33.4%" class="text-center">جميع القيود</h1>
+        <div style="width:33.3%" class="text-center d-flex align-items-center">
+          <button @click="add_storage_entry" class="btn btn-light">إضافة بكس من المخزن</button>
+          <input type="text" v-model="add_manufactured_boxes"  class="form-control mr-2" style="width:40%;display:inline-block;">
+        </div>
+      </div>
+      <!-- <div class="h80">
         <div class="middle">
           <div class="row justify-content-center align-items-center">
-            <!-- <button class="btn btn-light">تعديل التفاصيل</button> -->
             <h6 class="ml-5">
               الرصيد:
               <span class="ml-2">{{ remaining_balance }}</span>
               <span>بكسة</span>
             </h6>
             <h1 class="mx-5">جميع القيود</h1>
-            <button class="btn btn-light mr-5">إضافة بكس من المخزن</button>
+            <button class="btn btn-light mr-2">إضافة بكس من المخزن</button>
+            <input type="text" class="form-control mr-2" style="width:20%;display:inline-block;">
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <hr color="white" class="my-0" />
@@ -68,14 +80,15 @@
               id="entry_types_select"
               class="form-control w-75"
               v-model="selected_type"
+              @change="filterByType"
             >
               <option selected value="null">فلتر حسب نوع القيد</option>
               <option
-                v-for="type of entry_types"
-                :key="type"
-                :value="type"
+                v-for="type in entry_types"
+                :key="type.id"
+                :value="type.id"
               >
-                {{ type }}
+                {{ type.name }}
               </option>
             </select>
           </div>
@@ -85,7 +98,7 @@
               id="entry_types_select"
               class="form-control w-75"
             >
-              <option selected value="null">فلتر حسب الحالة</option>
+              <option selected :value="null">فلتر حسب الحالة</option>
               <option v-for="state in entry_states" :key="state" :value="state">
                 {{ state }}
               </option>
@@ -111,7 +124,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in items" :key="item.number">
+        <tr v-for="item in filteredItems" :key="item.number">
           <td scope="row">
             <input
               v-model="item.isChecked"
@@ -119,11 +132,11 @@
               class="form-control"
             />
           </td>
-          <td>{{ item.giver_id }}</td>
-          <td>{{ item.taker_id }}</td>
-          <td>{{ entry_types[item.type] }}</td>
+          <td style="min-width:120px;">{{ item.giver_name }}</td>
+          <td style="min-width:120px;">{{ item.taker_name }}</td>
+          <td>{{ entry_types.find(x => x.id == item.type).name }}</td>
           <td>{{ item.quantity }}</td>
-          <td>{{ item.unit_price }}</td>
+          <td>{{ item.unit_price? item.unit_price : '-' }}</td>
           <td>{{ item.date_created }}</td>
           <td>{{ item.date_updated }}</td>
           <td>{{ item.comment }}</td>
@@ -132,6 +145,7 @@
     </table>
 
     <div style="height: 15px"></div>
+    
   </div>
 </template>
 
@@ -142,33 +156,66 @@ import { mapGetters } from 'vuex';
 export default {
   data() {
     return {
-        selected_type: null,
+      selected_type: null,
       remaining_balance: 0,
-      entry_types: {
-          1: 'تسليم',
-          2: 'بيع',
-          3: 'ارجاع',
-          4: 'غير معروف المصير',
-          5: 'قيد تصحيحي',
-          6: 'توبة تاجر',
-          7: 'قيد مراجعة',
-          8: 'استيلاء الاحتلال',
-          9: 'ارجاع زيادة',
-          10: 'بيع زيادة',
-          11: 'مكسر',
-          12: 'إضافة بٌكس إلى المخزن',
-          13: 'أخذ بُكس من المخزن',
-          14: 'تصفير'
-      },
-      entry_states: ['حالة 1', 'حالة 2', 'حالة 3', 'حالة 4'],
+      add_manufactured_boxes: null,
+      entry_types: [
+        {
+          id: 1,
+          name: 'تسليم'
+        },
+        {
+          id: 2,
+          name: 'بيع'
+        },
+        {
+          id: 3,
+          name: 'ارجاع'
+        },
+        {
+          id: 5,
+          name: 'قيد تصحيحي'
+        },
+        {
+          id: 7,
+          name: 'قيد مراجعة'
+        },
+        {
+          id: 9,
+          name: 'ارجاع زيادة'
+        },
+        {
+          id: 10,
+          name: 'بيع زيادة'
+        },
+      ],
+      entry_states: [
+        'استيلاء الاحتلال',
+        'توبة تاجر',
+        'غير معروف المصير'
+      ],
       From_date_created: this.getDateNow(),
       To_date_created: this.getDateNow(),
       From_date_updated: this.getDateNow(),
       To_date_updated: this.getDateNow(),
-      items: []
+      items: [],
+      filteredItems: []
     };
   },
   methods: {
+    filterByType(){
+      if(this.selected_type == 'null') {
+        this.filteredItems = this.items;
+        return;
+      }
+      let result = [];
+      for(let i = 0; i < this.items.length; i++){
+        if(this.items[i].type == this.selected_type){
+          result.push(this.items[i]);
+        }
+      }
+      this.filteredItems = result;
+    },
     deleteSelectedItems() {
       let result = [];
       for (let i = 0; i < this.items.length; i++) {
@@ -177,6 +224,28 @@ export default {
         }
       }
       this.items = result;
+    },
+    add_storage_entry(){
+      if(!this.add_manufactured_boxes){
+        alert('يجب إدخال عدد البكس');
+        return;
+      }
+      axios.post('http://127.0.0.1:8000/api/add-storage-entry/', 
+      {
+          type: 22,
+          caused_by: 1,
+          quantity_diff: this.add_manufactured_boxes,
+          comment: ''
+      },
+      {headers: { Authorization: `Token ${this.getToken}` }})
+      .then(res => {
+          console.log(res);
+          this.add_manufactured_boxes = null;
+          this.get_storage_balance();
+      })
+      .catch(err => {
+          console.log(err);
+      });
     },
     getDateNow() {
       var d = new Date(),
@@ -211,6 +280,7 @@ export default {
         .then((res) => {
           console.log(res);
           this.items = res.data.data;
+          this.filteredItems = res.data.data;
         })
         .catch((err) => console.log(err));
     },

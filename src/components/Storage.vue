@@ -32,8 +32,8 @@
               </div>
           </div>
           <div>
-            <div class="font-weight-bold">بكس الصيادين <span>{{ fishermen_balance }}</span> بكسة</div>
-            <div class="font-weight-bold">بكس التجار <span>{{ fsellers_balance }}</span> بكسة</div>
+            <div class="font-weight-bold">بكس الصيادين <span>{{ fsellers_balance }}</span> بكسة</div>
+            <div class="font-weight-bold">بكس التجار <span>{{  fishermen_balance }}</span> بكسة</div>
           </div>
       </div>
 

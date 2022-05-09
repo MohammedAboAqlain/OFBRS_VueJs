@@ -1,5 +1,5 @@
 <template>
-    <div class="w-50 mx-auto my-5 text-right px-4 bg-secondary text-white rounded">
+    <!-- <div class="w-50 mx-auto my-5 text-right px-4 bg-secondary text-white rounded">
         <h2 class="text-center py-4 border-bottom">النسخ الاحتياطي</h2>
         <div class="row py-4 border-bottom no-gutters">
             <h6 class="col-12">تصدير نسخة احتياطية:</h6>
@@ -30,5 +30,8 @@
                 <button class="btn btn-primary">استيراد</button>
             </div>
         </div>
+    </div> -->
+    <div>
+        <h1 class="text-center py-4">غير متوفر حاليا</h1>
     </div>
 </template>

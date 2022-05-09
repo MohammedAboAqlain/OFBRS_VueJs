@@ -5,7 +5,7 @@
             <div class="form-row">
                 <div class="col-md-6 mb-3">
                     <label for="validationTooltip01">الاسم </label>
-                    <input type="text" v-model="formdata.name" class="form-control" id="validationTooltip01" value="" placeholder="أدخل الاسم " required>
+                    <input ref="name" type="text" v-model="formdata.name" class="form-control" id="validationTooltip01" value="" placeholder="أدخل الاسم " required>
                     <div class="valid-tooltip">
                         Looks good!
                     </div>
@@ -58,10 +58,10 @@
         data(){
             return {
                 formdata: {
-                    name : '',
-                    phone: '',
+                    name : null,
+                    phone: null,
                     type: null,
-                    password: '',
+                    password: null,
                     market: null
                 },
                 userTypes: [
@@ -84,7 +84,6 @@
                 axios.post('http://127.0.0.1:8000/api/register/', user)
                     .then(res => {
                         console.log(res);
-                        this.$router.push('/');
                     })
                     .catch(err => console.log(err));
             }
@@ -106,6 +105,8 @@
                 console.log(res.data.item);
             })
             .catch(err => console.log(err));
+
+            this.$refs.name.focus();
         }
     }
 </script>

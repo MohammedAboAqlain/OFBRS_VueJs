@@ -2,8 +2,8 @@
   <div class="main-wrapper rounded-bottom mb-2">
     <div class="mx-auto" style="width: fit-content">
       <div class="h80">
-        <h3>
-          كشف {{ viewType == 'Receive' ? 'استلام من تاجر' : 'تسليم لصياد' }}
+        <h3 class="text-white">
+          كشف {{ viewType == 'Receive' ? 'استلام من تاجر' : 'تسليم صياد' }}
         </h3>
       </div>
     </div>
@@ -317,7 +317,7 @@ export default {
           }
         }
         let overflowValue =
-          this.userBalance > 0
+          this.userBalance >= 0
             ? this.formData.quantity - this.userBalance
             : this.formData.quantity;
         this.items.push({
@@ -326,7 +326,7 @@ export default {
           userNumber,
           user: this.formData.user,
           notes:
-            overflowValue < 0
+            overflowValue <= 0
               ? this.formData.notes
               : `ارجاع زيادة ${overflowValue}`,
           isChecked: false,
@@ -418,6 +418,17 @@ export default {
 </script>
 
 <style scoped>
+
+input.e-control.e-autocomplete.e-lib.e-input.e-keyboard{
+  background: white;
+  border-radius: 5px;
+  padding-inline: 8px;
+}
+
+span.e-input-group.e-control-wrapper.e-ddl{
+  margin: 0px !important;
+}
+
 .main-wrapper {
   width: 100%;
   max-height: 90vh;

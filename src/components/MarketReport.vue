@@ -1,6 +1,6 @@
 <template>
     <div class="bg-light">
-        <h1 class="text-center py-4">تقرير {{market_name}}</h1>
+        <h1 class="text-center py-4">{{market_name}}</h1>
         <div class="row text-center">
             <div class="col-md-3">
                 <input type="search" v-model="searchValue" @input="search" placeholder="بحث" class="form-control mx-md-3 mb-5">

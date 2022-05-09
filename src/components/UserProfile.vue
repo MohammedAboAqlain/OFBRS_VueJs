@@ -48,7 +48,7 @@
                         <label for="name" class="ml-3">السوق: </label>
                     </div>
                     <div class="col-6">
-                        <input type="text" disabled :value="getAllMarkets.find(x => x.id == getUser.market).name">
+                        <input type="text" disabled :value="(getAllMarkets.find(x => x.id == getUser.market) || {}).name">
                     </div>
                 </div>
             </div>
@@ -76,7 +76,7 @@
 
         <h4 style="color:blue;" class="text-right mx-2 pb-3">قيود المستخدم:</h4>
 
-        <div class="mx-2">
+        <div class="mx-2 pb-2">
             <table class="table table-hover table-bordered text-center">
                 <thead>
                     <tr>
@@ -105,8 +105,8 @@
                     <td>{{ entry_types.find(x => x.id == item.type).name }}</td>
                     <td>{{ item.quantity }}</td>
                     <td>{{ item.unit_price? item.unit_price : '-' }}</td>
-                    <td>{{ item.date_created }}</td>
-                    <td>{{ item.date_updated }}</td>
+                    <td>{{ item.date_created? item.date_created.split("T")[0] : null }}</td>
+                    <td>{{ item.date_updated? item.date_updated.split("T")[0] : null }}</td>
                     <td>{{ item.comment }}</td>
                     </tr>
                 </tbody>
@@ -155,7 +155,7 @@
                 items: [],
             }
         },
-        computed: mapGetters(['getUser']),
+        computed: mapGetters(['getUser', 'getToken']),
         methods: {
             getUserType(type_id){
                 if(type_id == 1){
@@ -179,6 +179,37 @@
                     console.log(res.data.item);
                 })
                 .catch(err => console.log(err));
+
+            axios
+            .get(`http://127.0.0.1:8000/api/get-entries/${this.getUser.id}/`, {
+            params: {
+                From_date_created: '2022-03-01',
+                To_date_created: '2022-03-17',
+                From_date_updated: '2022-03-17',
+                To_date_updated: '2022-03-17',
+            },
+            headers: { Authorization: `Token ${this.getToken}` },
+            })
+            .then((res) => {
+            console.log(res);
+            this.items = res.data.data;
+            })
+            .catch((err) => console.log(err));
+            
+
+            // this.items.push(
+            //     {
+            //         id: 1,
+            //         giver_name: 'giver',
+            //         taker_name: 'taker',
+            //         type: 3,
+            //         quantity: 10,
+            //         unit_price: 0,
+            //         date_created: '2022-03-08',
+            //         date_updated: '2022-03-08',
+            //         comment: 'comment'
+            //     }
+            // );
         },
     }
 </script>

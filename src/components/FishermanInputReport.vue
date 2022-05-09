@@ -337,6 +337,16 @@ export default {
 <style scoped>
 @import url('https://cdn.syncfusion.com/ej2/material.css');
 
+input.e-control.e-autocomplete.e-lib.e-input.e-keyboard{
+  background: white;
+  border-radius: 5px;
+  padding-inline: 8px;
+}
+
+span.e-input-group.e-control-wrapper.e-ddl{
+  margin: 0px !important;
+}
+
 #main-wrapper {
   width: 100%;
   max-height: 200vh;

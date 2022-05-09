@@ -74,25 +74,28 @@
       </div>
       <div class="col-md-6">
         <div class="row justify-content-around mt-3">
-          <div class="col-6">
-            <select
-              name="entry_types"
-              id="entry_types_select"
-              class="form-control w-75"
-              v-model="selected_type"
-              @change="filterByType"
-            >
-              <option selected value="null">فلتر حسب نوع القيد</option>
-              <option
-                v-for="type in entry_types"
-                :key="type.id"
-                :value="type.id"
+          <div class="col-12">
+            <div class="d-flex justify-content-center">
+              <select
+                name="entry_types"
+                id="entry_types_select"
+                class="form-control w-50"
+                style="cursor:pointer;"
+                v-model="selected_type"
+                @change="filterByType"
               >
-                {{ type.name }}
-              </option>
-            </select>
+                <option selected value="null">فلتر حسب نوع القيد</option>
+                <option
+                  v-for="type in entry_types"
+                  :key="type.id"
+                  :value="type.id"
+                >
+                  {{ type.name }}
+                </option>
+              </select>
+            </div>
           </div>
-          <div class="col-6">
+          <!-- <div class="col-6">
             <select
               name="entry_types"
               id="entry_types_select"
@@ -103,7 +106,7 @@
                 {{ state }}
               </option>
             </select>
-          </div>
+          </div> -->
         </div>
         <div class="mr-2"></div>
       </div>
@@ -137,8 +140,8 @@
           <td>{{ entry_types.find(x => x.id == item.type).name }}</td>
           <td>{{ item.quantity }}</td>
           <td>{{ item.unit_price? item.unit_price : '-' }}</td>
-          <td>{{ item.date_created }}</td>
-          <td>{{ item.date_updated }}</td>
+          <td>{{ item.date_created.split("T")[0] }}</td>
+          <td>{{ item.date_updated.split("T")[0] }}</td>
           <td>{{ item.comment }}</td>
         </tr>
       </tbody>
@@ -172,18 +175,18 @@ export default {
           id: 3,
           name: 'ارجاع'
         },
-        {
-          id: 5,
-          name: 'قيد تصحيحي'
-        },
-        {
-          id: 7,
-          name: 'قيد مراجعة'
-        },
-        {
-          id: 9,
-          name: 'ارجاع زيادة'
-        },
+        // {
+        //   id: 5,
+        //   name: 'قيد تصحيحي'
+        // },
+        // {
+        //   id: 7,
+        //   name: 'قيد مراجعة'
+        // },
+        // {
+        //   id: 9,
+        //   name: 'ارجاع زيادة'
+        // },
         {
           id: 10,
           name: 'بيع زيادة'
@@ -281,6 +284,7 @@ export default {
           console.log(res);
           this.items = res.data.data;
           this.filteredItems = res.data.data;
+          this.selected_type = null;
         })
         .catch((err) => console.log(err));
     },

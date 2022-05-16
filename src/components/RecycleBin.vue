@@ -1,5 +1,5 @@
 <template>
-  <h1 class="text-center py-4">Here is Recycle bin</h1>
+  <h1 class="text-center py-4">غير متوفر حاليا</h1>
 </template>
 
 <script>

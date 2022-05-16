@@ -47,7 +47,7 @@
                 .then(res => {
                     console.log(res);
                     this.setToken(res.data.access_token);
-                    res.data.user.balance = res.data.balance;
+                    // res.data.user.balance = res.data.balance;
                     this.setUser(res.data.user);
                     this.fetchMarkets();
                     if(res.data.user.type_id == '0'){

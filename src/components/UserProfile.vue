@@ -182,19 +182,19 @@
 
             axios
             .get(`http://127.0.0.1:8000/api/get-entries/${this.getUser.id}/`, {
-            params: {
-                From_date_created: '2022-03-01',
-                To_date_created: '2022-03-17',
-                From_date_updated: '2022-03-17',
-                To_date_updated: '2022-03-17',
-            },
-            headers: { Authorization: `Token ${this.getToken}` },
-            })
-            .then((res) => {
-            console.log(res);
-            this.items = res.data.data;
-            })
-            .catch((err) => console.log(err));
+                params: {
+                    From_date_created: '2022-02-01',
+                    To_date_created: '2028-05-31',
+                    From_date_updated: '2022-03-17',
+                    To_date_updated: '2028-05-31',
+                },
+                headers: { Authorization: `Token ${this.getToken}` },
+                })
+                .then(res => {
+                console.log(res);
+                this.items = res.data.data;
+                })
+                .catch((err) => console.log(err));
             
 
             // this.items.push(
